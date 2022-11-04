@@ -62,7 +62,5 @@ public class FrontControllerServletV3 extends HttpServlet {
         request.getParameterNames().asIterator().forEachRemaining(paramName -> paramMap.put(paramName, request.getParameter(paramName)));
 
         return paramMap;
-
-
     }
 }
