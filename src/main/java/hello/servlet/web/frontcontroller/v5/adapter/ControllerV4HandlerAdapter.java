@@ -29,6 +29,7 @@ public class ControllerV4HandlerAdapter implements MyHandlerAdapter {
 
         String viewName = controller.process(paramMap, model);
 
+        //ControllerV4는 ModelView를 반환하기 때문에 어댑터는 뷰의 이름이 아니라 ModelView를 만들어서 반환
         ModelView mv = new ModelView(viewName);
         mv.setModel(model);
 
