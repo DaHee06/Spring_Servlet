@@ -32,9 +32,10 @@ public class FrontControllerServletV5 extends HttpServlet {
     private final Map<String, Object> handlerMappingMap = new HashMap<>(); //핸들러매핑 정보 담겨있음, Object - Controller 종류 무관하게 담기 위해
     private final List<MyHandlerAdapter> handlerAdapters = new ArrayList<>(); //List 어댑터가 여러개 담겨있어 여기에 정보 담는다
 
+    //생성자는 핸들러 매핑과 어댑터를 초기화(등록)한다
     public FrontControllerServletV5() {
-        initHandlerMappingMap();
-        initHandlerAdapters();
+        initHandlerMappingMap(); //핸들러 매핑 초기화
+        initHandlerAdapters(); //어댑터 초기화
     }
 
     private void initHandlerMappingMap() {
@@ -55,7 +56,7 @@ public class FrontControllerServletV5 extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //URI를 통해 핸들러를 찾는다.
+        //URI를 통해 핸들러를 찾는다. 핸들러 매핑
         Object handler = getHandler(request); //핸들러 찾아와
 
         if (handler == null) {
@@ -63,10 +64,10 @@ public class FrontControllerServletV5 extends HttpServlet {
             return;
         }
 
-        //어댑터 찾기
+        //어댑터 찾기, 핸들러를 처리할 수 있는 어댑터 조회
         MyHandlerAdapter adapter = getHandlerAdapter(handler); //어댑터 찾아와
 
-        //어댑터에 맞는 핸들러
+        //어댑터 호출
         ModelView mv = adapter.handle(request, response, handler);
 
         String viewName = mv.getViewname();
